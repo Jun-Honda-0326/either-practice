@@ -1,0 +1,19 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /Users/jun/projects/scala/either-practice/target/scala-2.12/either-practice_2.12-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/DivideError$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/DivideError$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/EitherExample$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/EitherExample$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/EitherExample.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/EitherExample.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/DivideError$Indivisible$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/DivideError$Indivisible$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/DivideError$ZeroDivision$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/DivideError$ZeroDivision$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/DivideError$Indivisible.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/DivideError$Indivisible.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	exmaple/DivideError.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/jun/projects/scala/either-practice/target/scala-2.12/classes/exmaple/DivideError.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m
