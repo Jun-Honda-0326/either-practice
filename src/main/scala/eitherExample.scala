@@ -1,5 +1,8 @@
 package exmaple
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
 
 object EitherExample {
 
@@ -25,6 +28,7 @@ object EitherExample {
       res3 <- divideEither(res2, 2)
     } yield res3
   }
+
 
 }
 
