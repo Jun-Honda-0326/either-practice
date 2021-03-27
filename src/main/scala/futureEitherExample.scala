@@ -3,11 +3,13 @@ package exmaple
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
+import scala.util.Failure
 
 object FutureEitherExample {
 
   def main(args: Array[String]): Unit = {
-    println(divideBy2AsyncEither(4))
+    divideBy2AsyncEither(4)
+    divideBy2AsyncEither(3)
   }
 
   import EitherExample.divideEither
@@ -19,11 +21,16 @@ object FutureEitherExample {
 
   def divideBy2AsyncEither(num: Int): Unit = {
     val result: Future[Either[DivideError, Int]]
-    result.onComplete {
-      case Success(value) => value match {
-        case Left
+      = for {
+        res1 <- divideAsyncEither(num, 2)
+        re2  <- divideAsyncEither(num, 2)
+        res3 <- divideAsyncEither(num, 2)
+      } yield res3
+      result.onComplete {
+        case Success(value) => println(value)
+        case Failure(e)     => println(e)
       }
     }
-    }
+
 
   }
