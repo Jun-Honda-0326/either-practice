@@ -1,4 +1,4 @@
-package exmaple
+package example
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -28,12 +28,10 @@ object EitherExample {
       res3 <- divideEither(res2, 2)
     } yield res3
   }
-
-
 }
 
-sealed trait DivideError
-object DivideError {
-  case class Indivisible(num: Int, demon: Int) extends DivideError
-  object ZeroDivision extends DivideError
-}
+  sealed trait DivideError
+  object DivideError {
+    case class Indivisible(num: Int, demon: Int) extends DivideError
+    object ZeroDivision extends DivideError
+  }
