@@ -11,7 +11,6 @@ trait FetchWorkerOnWorkDay {
   import FetchWorkerOnWorkDay._
   def excute(date: LocalDate): Future[Either[Err, List[Worker]]]
 }
-
 object FetchWorkerOnWorkDay {
   sealed trait Err
   object Err {
@@ -21,7 +20,7 @@ object FetchWorkerOnWorkDay {
 
 trait FetchCompanyRequest {
   import FetchCompanyRequest._
-  def excute(companyId: Long, date: LocalDate)
+  def excute(companyId: Long, date: LocalDate): Future[Either[Err, CompanyRequest]]
 }
 case class CompanyRequest(companyId: Long, date: LocalDate, numberOfPeople: Int, content: String)
 object FetchCompanyRequest {
@@ -32,7 +31,6 @@ object FetchCompanyRequest {
     case object NotRecruiting extends Err
   }
 }
-
 
 class WorkerAssignToCompanyService(
   fetchWorkersOnDay: FetchWorkerOnWorkDay,
@@ -52,5 +50,24 @@ class WorkerAssignToCompanyService(
       assignedWorkers <- EitherT(Future.successful(assignWorkers(workersOnWorkDay, companyRequest.numberOfPeople)))
     } yield Result(companyRequest, assignedWorkers)
     e.value
+  }
+
+  def assignWorkers(workers: List[Worker], numberOfPeople: Int): Either[Err, List[Worker]] = {
+    if (workers.length < numberOfPeople) Left(Err.NotEnoughWorkers)
+    else Right(workers.take(numberOfPeople))
+  }
+
+}
+
+
+object WorkerAssignToCompanyService {
+  case class Result(companyRequest: CompanyRequest, workers: List[Worker])
+  sealed trait Err
+  object Err {
+    case object CompanyNotFound extends Err
+    case object IllegalDate extends Err
+    case object NotRecruiting extends Err
+    case object NoWorkers extends Err
+    case object NotEnoughWorkers extends Err
   }
 }
