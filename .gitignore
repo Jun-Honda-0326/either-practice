@@ -3,4 +3,5 @@
 target/
 .bsp/
 project/
-.bloop/git
+.bloop/
+git
