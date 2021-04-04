@@ -6,11 +6,6 @@ import cats.implicits._
 import java.time.LocalDate
 
 object  EitherTPractice {
-  def main(args: Array[String]): Unit = {
-    println("hello")
-
-  }
-
 
   case class Worker(name: String)
 
