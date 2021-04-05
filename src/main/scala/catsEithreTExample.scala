@@ -12,6 +12,9 @@ object catsEithreTExample {
   def main(args: Array[String]): Unit = {
     println(Await.ready(divisionProgramAsync("10", "6").value, Duration.Inf))
     println(Await.ready(divisionProgramAsync("ok", "6").value, Duration.Inf))
+    fromAOrBToEitherT("Exception", 111)
+    fromFAOrFBToEitherT(Some("Exception"), Some(222))
+    fromFEitherToEitherT(Right(333) , List(Right(444)))
   }
 
   def parseDouble(s: String): Either[String, Double] = {
@@ -38,4 +41,25 @@ object catsEithreTExample {
     } yield result
   }
 
+  def fromAOrBToEitherT(err: String, num: Int): Unit= {
+    val numEitherT: EitherT[Option, String, Int] = EitherT.rightT(num)
+    val errEitherT: EitherT[Option, String, Int] = EitherT.leftT(err)
+    println(numEitherT)
+    println(errEitherT)
+  }
+
+  def fromFAOrFBToEitherT(err: Option[String], num: Option[Int]): Unit = {
+    val numEitherT: EitherT[Option, String, Int] = EitherT.right(num)
+    val errEitherT: EitherT[Option, String, Int] = EitherT.left(err)
+    println(numEitherT)
+    println(errEitherT)
+  }
+
+  def fromFEitherToEitherT(either: Either[String, Int], listEither: List[Either[String, Int]]): Unit = {
+    val numET: EitherT[List, String, Int] = EitherT.fromEither(either)
+    val numFET: EitherT[List, String, Int] = EitherT(listEither)
+    println(numET)
+    println(listEither)
+
+  }
 }
