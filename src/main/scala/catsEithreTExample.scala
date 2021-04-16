@@ -15,6 +15,12 @@ object catsEithreTExample {
     fromAOrBToEitherT("Exception", 111)
     fromFAOrFBToEitherT(Some("Exception"), Some(222))
     fromFEitherToEitherT(Right(333) , List(Right(444)))
+    eitherTFromOption()
+    applicationErrorToEitherT()
+    eitherTSemiFlatMapOption()
+    println(Await.ready(eitherTSemiFlatMapFuture().value, Duration.Inf ))
+    println(Await.ready(eitherTFor(), Duration.Inf))
+
   }
 
   def parseDouble(s: String): Either[String, Double] = {
@@ -58,8 +64,60 @@ object catsEithreTExample {
   def fromFEitherToEitherT(either: Either[String, Int], listEither: List[Either[String, Int]]): Unit = {
     val numET: EitherT[List, String, Int] = EitherT.fromEither(either)
     val numFET: EitherT[List, String, Int] = EitherT(listEither)
+    val numFE =  EitherT(Future(either))
     println(numET)
     println(listEither)
-
+    println(numFE)
   }
+
+  def eitherTFromOption():Unit = {
+    val noneOpt: Option[Int] = None
+    val listOpt: List[Option[Int]] = List(None, Some(2), Some(3), None, Some(4))
+    val noneOptET: EitherT[Future, String, Int] = EitherT.fromOption[Future](noneOpt, "option not defined")
+    println(noneOptET)
+    val listOptET = EitherT.fromOptionF(listOpt, "option not defined")
+    println(listOptET)
+  }
+
+  def applicationErrorToEitherT(): Unit = {
+    val myTry: Try[Int] = Try(2)
+    val myFuture: Future[String] = Future.failed(new Exception())
+
+    val myTryET: EitherT[Try, Throwable, Int] = myTry.attemptT
+    println(myTryET)
+    val myFutureET: EitherT[Future, Throwable, String] = (myFuture.attemptT)
+    println(myFutureET)
+  }
+
+  def eitherTSemiFlatMapOption(): Unit = {
+    val either: Either[String, Int] = Right(10)
+    val eitherT: EitherT[Option, String, Int] = EitherT.rightT(100)
+
+    val eitherTOpt = eitherT semiflatMap {
+      num => Some(99)
+    }
+    println(eitherTOpt)
+  }
+
+  def eitherTSemiFlatMapFuture(): EitherT[Future, String, Int]= {
+    val either: Either[String, Int] = Right(10)
+    val eitherT: EitherT[Future, String, Int] = EitherT.rightT(100)
+      eitherT semiflatMap {
+        num => Future.successful(999)
+    }
+  }
+
+  def eitherTFor():Future[EitherT[List,String, Int]] = {
+   val listEither = Future(List(Right(100), Right(200), Left("Not number"), Right(300), Left("Not number")))
+   val  listEitherT = listEither.map(EitherT(_))
+   for {
+     eitherT <- listEitherT
+   } yield  {
+     println(eitherT)
+     eitherT.semiflatMap(num => List(num + 100 ))
+   }
+  }
+
+
+
 }
