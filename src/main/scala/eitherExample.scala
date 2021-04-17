@@ -22,11 +22,7 @@ object EitherExample {
   }
 
   def divideBy2Either(num: Int): Either[DivideError, Int] = {
-    for {
-      res1 <- divideEither(num, 2)
-      res2 <- divideEither(res1, 2)
-      res3 <- divideEither(res2, 2)
-    } yield res3
+    divideEither(num, 2)
   }
 }
 
